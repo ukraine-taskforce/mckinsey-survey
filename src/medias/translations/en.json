@@ -67,5 +67,15 @@
   "orders_page_title": "Orders",
   "contact_us_at": "Contact us at",
   "about_dialog_head": "About Ukraine Global Taskforce",
-  "about_dialog_detailed": "The goal of Ukraine Global Taskforce is to come together and work on various projects to altogether minimize the impact of the war and most importantly, equip/help/support our extended family of ukrainians."
+  "about_dialog_detailed": "The goal of Ukraine Global Taskforce is to come together and work on various projects to altogether minimize the impact of the war and most importantly, equip/help/support our extended family of ukrainians.",
+  "organization_name": "Organization name",
+  "organization_name_placeholder": "Organization name",
+  "organization_website": "Organization's website",
+  "organization_website_placeholder": "Organizataion's website",
+  "email_field": "Email",
+  "email_placeholder": "Email",
+  "ngo_size_field": "How many people are you helping on average per week?",
+  "num_people_helped_placeholder": "Number of people",
+  "review_num_people_helped": "People helped per week",
+  "review_org_info": "Organization information"
 }

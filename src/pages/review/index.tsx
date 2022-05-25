@@ -75,12 +75,22 @@ export function Review() {
         <Spacer size={24} />
         <div className={styles.flex}>
           <Card className={styles.card}>
+            <Text className={styles.cardTitle}>{t("review_org_info")}</Text>
+            <Text className={styles.cardContent}>
+              {currentValue.organizationName}
+            </Text>
+            <Text className={styles.secondaryCardContent}>{currentValue.organizationWebsite}</Text>
+            <Text className={styles.secondaryCardContent}>{t("review_num_people_helped")}: {currentValue.numPeopleHelped}</Text>
+          </Card>
+          <Spacer size={8} />
+          <Card className={styles.card}>
             <Text className={styles.cardTitle}>{t("review_contact_info")}</Text>
             <Text className={styles.cardContent}>
               {name ? `${name}, ` : ""}
               {getCityName(location)}
             </Text>
             <Text className={styles.secondaryCardContent}>{parsePhoneNumber(phoneNumber)?.formatInternational()}</Text>
+            <Text className={styles.secondaryCardContent}>{currentValue.email}</Text>
           </Card>
           <Spacer size={8} />
           <Card className={styles.card}>

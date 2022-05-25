@@ -34,6 +34,23 @@ export function Contact() {
   }, [navigate]);
 
   const setName = (newValue: string) => updateValue({ name: newValue });
+  const setOrganizationName = (newValue: string) => updateValue({ organizationName: newValue });
+  const setOrganizationWebsite = (newValue: string) => updateValue({ organizationWebsite: newValue });
+  const setEmail = (newValue: string) => updateValue({ email: newValue });
+  const setNumPeopleHelped = (newValue: string) => {
+    let parsedAmount = 0;
+    try {
+      const tmp = parseInt(newValue);
+      if (tmp >= 1) {
+        parsedAmount = tmp;
+      }
+    } finally {
+      if (newValue === "") {
+        parsedAmount = 0;
+      }
+    }
+    updateValue({ numPeopleHelped: parsedAmount });
+  };
 
   const setPhoneNumber = (newValue: string, countryCode: string) => {
     setPhoneNumberError(undefined);
@@ -52,8 +69,25 @@ export function Contact() {
         <h1 className={styles.title}>{t("contact_description")}</h1>
         <Spacer size={24} />
         <div className={styles.flex}>
+          <Label required>{t("organization_name")}</Label>
+          <Spacer size={10} />
+          <Input value={currentValue.organizationName || ""} label="organization_name_field" placeholder={t("organization_name_placeholder")} onChange={setOrganizationName} />
+          <Spacer size={30} flex={2} />
+
+          <Label>{t("organization_website")}</Label>
+          <Spacer size={10} />
+          <Input value={currentValue.organizationWebsite || ""} label="organization_website_field" placeholder={t("organization_website_placeholder")} onChange={setOrganizationWebsite} />
+          <Spacer size={30} flex={2} />
+
+          <Label>{t("name_field")}</Label>
+          <Spacer size={10} />
+          <Input value={currentValue.name || ""} label={t("name_field")} placeholder={t("name_placeholder")} onChange={setName} />
+
+          <Spacer size={30} flex={2} />
+
           <Label required>{t("phone_number_field")}</Label>
           <Spacer size={10} />
+
           <PhoneInput
             country={"ua"}
             value={currentValue.phoneNumber}
@@ -65,9 +99,15 @@ export function Contact() {
 
           <Spacer size={30} flex={2} />
 
-          <Label>{t("name_field")}</Label>
+          <Label>{t("email_field")}</Label>
           <Spacer size={10} />
-          <Input value={currentValue.name || ""} label={t("name_field")} placeholder={t("name_placeholder")} onChange={setName} />
+          <Input value={currentValue.email || ""} label="email_field" placeholder={t("email_placeholder")} onChange={setEmail} />
+
+          <Spacer size={30} flex={2} />
+
+          <Label>{t("ngo_size_field")}</Label>
+          <Spacer size={10} />
+          <Input value={currentValue.numPeopleHelped === 0 ? "" : "" + currentValue.numPeopleHelped} label="num_people_helped_field" placeholder={t("num_people_helped_placeholder")} onChange={setNumPeopleHelped} />
 
           <Spacer size={30} flex={2} />
 

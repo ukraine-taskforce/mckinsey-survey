@@ -11,6 +11,10 @@ export interface FormData {
   location?: ID;
   supplies: SupplyWithAmount[];
   name: string;
+  organizationName: string;
+  organizationWebsite: string;
+  numPeopleHelped: number;
+  email: string;
   phoneNumber: string;
   comments: string;
   status: RequestStatus;
@@ -27,6 +31,10 @@ const defaultValue: FormData = {
   phoneNumber: "",
   supplies: [],
   comments: "",
+  organizationName: "",
+  organizationWebsite: "",
+  numPeopleHelped: 0,
+  email: "",
   status: RequestStatus.New,
 };
 

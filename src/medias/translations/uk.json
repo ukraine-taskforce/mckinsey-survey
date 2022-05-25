@@ -68,5 +68,15 @@
   "about_dialog_head": "Про Ukraine Global Taskforce",
   "about_dialog_detailed": "Ціль UGT - об’єднатися (незалежно від походження) та працювати над різними проектами, щоб загалом мінімізувати вплив війни та, що найголовніше озброїти/допомогти/підтримати нашу велику родину українців.",
   "contact_us_at": "Зв’яжіться з нами за адресою",
-  "supplies2_how_much": "Скільки вам потрібно кожного продукту?"
+  "supplies2_how_much": "Скільки вам потрібно кожного продукту?",
+  "organization_name": "Назва організації",
+  "organization_name_placeholder": "Назва організації",
+  "organization_website": "Веб-сайт організації",
+  "organization_website_placeholder": "Веб-сайт організації",
+  "email_field": "Email",
+  "email_placeholder": "Email",
+  "ngo_size_field": "Скільком людям ви допомагаєте в середньому на тиждень?",
+  "num_people_helped_placeholder": "Кількість людей",
+  "review_org_info": "Інформація про організацію",
+  "review_num_people_helped": "Кількість людей, якій надалється допомога за тиждень"
 }
