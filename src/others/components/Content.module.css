@@ -1,0 +1,7 @@
+.bodyWrapper {
+    padding: var(--padding-content);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+

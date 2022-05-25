@@ -1,0 +1,51 @@
+.descriptionList {
+  margin: 0;
+}
+
+.descriptionList dt {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.descriptionList dd {
+  margin-left: 0;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #111E6A;
+}
+
+.backIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 6px;
+  vertical-align: bottom;
+}
+
+.headerItem {
+  cursor: pointer;
+  padding: 10px 0px;
+  color: var(--color-secondary);
+}
+
+.filterTitle {
+  color: var(--color-secondary);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16px;
+
+}
+
+.filterChip {
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
+}
+
+.circle {
+  width: 32px;
+  height: 32px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  border-radius: 16px;
+}

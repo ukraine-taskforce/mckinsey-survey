@@ -1,0 +1,76 @@
+.button {
+  background-color: #1337B8;
+  color: var(--color-white);
+  border: none;
+  margin: 0;
+  padding: 10px;
+  border-radius: 8px;
+  min-height: 60px;
+  width: auto;
+  overflow: visible;
+  text-align: center;
+  transition: opacity ease-in-out 0.3s;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+
+.buttonDefault {
+  position: relative;
+}
+
+.buttonFloat {
+  position: sticky;
+  bottom: 24px;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.label {
+  flex-grow: 1;
+  margin: auto;
+}
+
+.leadingIcon,
+.trailingIcon {
+  display: flex;
+}
+
+.leadingIcon {
+  left: 18px;
+}
+
+.trailingIcon {
+  right: 18px;
+}
+
+.iconsContainer {
+  --side-margin: 16px;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% - 2 * var(--side-margin));
+  height: 100%;
+  margin: 0px 16px;
+}
+
+.leadingIcon > *,
+.trailingIcon > * {
+  width: 24px;
+  height: 24px;
+  margin: auto 0;
+}
+
+.highlight {
+  background-color: var(--color-focus);
+}
+
+.white {
+  background-color: var(--color-white);
+}
