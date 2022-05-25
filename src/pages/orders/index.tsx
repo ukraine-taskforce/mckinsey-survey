@@ -14,7 +14,7 @@ import { Text } from "../../others/components/Text";
 import { Content } from "../../others/components/Content";
 import { FormData } from "../../others/contexts/form";
 import { Request, RequestStatus } from "../../others/helpers/requests";
-import { RequestUpdateParams, useRequestUpdateMutation, useLocationsQuery, useSuppliesQuery, useListRequests, useSubmitMutation } from "../../others/contexts/api";
+import { RequestUpdateParams, useRequestUpdateMutation, useLocationsQuery, useSuppliesQuery, useListRequests } from "../../others/contexts/api";
 import styles from "./orders.module.css";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { ImgBack } from "../../medias/images/UGT_Asset_UI_Back";
@@ -22,9 +22,7 @@ import { SupplyWithAmount } from "../../others/helpers/requests";
 
 const statusToColor = {
   [RequestStatus.New]: "blue",
-  [RequestStatus.InTransit]: "#FFD400",
   [RequestStatus.Invalid]: "#CF2A20",
-  [RequestStatus.Delivered]: "#00B17C",
   [RequestStatus.Expired]: "#0D1234"
 };
 
@@ -46,7 +44,6 @@ export function Orders() {
   const { data: supplies } = useSuppliesQuery();
   const { data: requests } = useListRequests();
   const { mutateAsync: mutate, isLoading } = useRequestUpdateMutation();
-  const { mutateAsync: mutateAdd, isLoading: isLoadingAdd } = useSubmitMutation();
   const [filterOpen, setFilterOpen] = React.useState(false);
   const [ignoreStatus, setIgnoreStatus] = React.useState<number[]>([]);
   const [confirmDialogConfig, setConfirmDialogConfig] = React.useState<undefined | ConfirmDialogConfig>(undefined);
@@ -128,7 +125,11 @@ export function Orders() {
       const formData: FormData = {
         location: request.city_id,
         name: request.userName,
+        organizationName: request.organizationName,
+        organizationWebsite: request.organizationWebsite,
+        email: request.email,
         phoneNumber: request.userPhoneNumber,
+        numPeopleHelped: request.numPeopleHelped,
         comments: request.userComments,
         status: status,
         supplies: request.supplies
@@ -141,31 +142,6 @@ export function Orders() {
       await queryClient.refetchQueries(["listRequests"]);
       setExpandedRequestPanel(false);
     }, [mutate, queryClient]
-  );
-
-  const splitRequest = React.useCallback(
-    async (data: PartialDispatchConfig) => {
-      const request = data.request;
-      const remaining_supplies = request.supplies.map((supply) => {
-        const i_supply = data.new_supplies.find((inner_supply) => inner_supply.id === supply.id);
-        if (i_supply) {
-          return {id: supply.id, amount: supply.amount - i_supply.amount};
-        }
-        return supply;
-      });
-
-      const formData: FormData = {
-        location: request.city_id,
-        name: request.userName,
-        phoneNumber: request.userPhoneNumber,
-        comments: request.userComments,
-        status: RequestStatus.New,
-        supplies: remaining_supplies
-      };
-      await mutateAdd(formData);
-      request.supplies = data.new_supplies;
-      changeStatus(request, RequestStatus.InTransit);
-    }, [mutateAdd, changeStatus]
   );
 
   const handleClose = () => {
@@ -307,26 +283,6 @@ export function Orders() {
                    </Button>
                  </>}
 
-                {request.status === RequestStatus.New &&
-                 <>
-                   <Spacer size={20} />
-                   <Button fullWidth
-                     disabled={isLoading}
-                     onClick={() => setConfirmDialogConfig({request: request, status: RequestStatus.InTransit})}>
-                     Mark as In Transit
-                   </Button>
-                 </>}
-
-                {request.status === RequestStatus.InTransit &&
-                 <>
-                   <Spacer size={20} />
-                   <Button fullWidth
-                     disabled={isLoading}
-                     onClick={() => setConfirmDialogConfig({request: request, status: RequestStatus.Delivered})}>
-                     Mark as Delivered
-                   </Button>
-                 </>}
-
                 {(request.status !== RequestStatus.Expired && request.status !== RequestStatus.Invalid) &&
                  <>
                    <Spacer size={20} />
@@ -425,14 +381,6 @@ export function Orders() {
             ))}
             </Box>
           </DialogContent>
-          <DialogActions>
-            <MUIButton onClick={() => setPartialDispatchRequest(undefined)}>
-              Cancel
-            </MUIButton>
-            <MUIButton onClick={() => {splitRequest(partialDispatchRequest); setPartialDispatchRequest(undefined);}} disabled={isLoadingAdd}>
-              Mark this part as InTransit
-            </MUIButton>
-          </DialogActions>
         </Dialog>}
         <Dialog
           fullScreen
@@ -451,8 +399,6 @@ export function Orders() {
               <Spacer size={10} />
               <Stack direction="row" spacing={1} >
                 <Chip label="New" classes={{ label: styles.filterChip }} color={ignoreStatus.indexOf(RequestStatus.New) !== -1 ? "default" : "primary"} onClick={() => toggleRequestStatus(RequestStatus.New)} />
-                <Chip label="In transit" classes={{ label: styles.filterChip }} color={ignoreStatus.indexOf(RequestStatus.InTransit) !== -1 ? "default" : "primary"} onClick={() => toggleRequestStatus(RequestStatus.InTransit)} />
-                <Chip label="Delivered" classes={{ label: styles.filterChip }} color={ignoreStatus.indexOf(RequestStatus.Delivered) !== -1 ? "default" : "primary"} onClick={() => toggleRequestStatus(RequestStatus.Delivered)}  />
                 <Chip label="Invalid" classes={{ label: styles.filterChip }} color={ignoreStatus.indexOf(RequestStatus.Invalid) !== -1 ? "default" : "primary"} onClick={() => toggleRequestStatus(RequestStatus.Invalid)} />
                 <Chip label="Expired" classes={{ label: styles.filterChip }} color={ignoreStatus.indexOf(RequestStatus.Expired) !== -1 ? "default" : "primary"} onClick={() => toggleRequestStatus(RequestStatus.Expired)} />
               </Stack>
